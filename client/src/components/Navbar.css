@@ -1,0 +1,84 @@
+@import "https://unpkg.com/open-props" layer(design.system);
+@import "https://unpkg.com/open-props/normalize.min.css" layer(demo.support);
+
+.navbar {
+  background-color: #f5f5f5; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+.nav-container {
+  display: flex; 
+  align-items: center; 
+  /* justify-content: space-between;  */
+  /* height: 100px; */
+}
+
+/* .custom-btn {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+} */
+
+.navbar-nav .nav-link {
+  color: #60cce2;
+  font-weight: 800;
+
+  margin: 5px;
+
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ 
+
+}
+.nav-links{
+ padding: 1px;
+  margin: 4px;
+  
+}
+button {
+  --c:  #ff0000;  
+  font-size: 50px;
+  box-shadow: 0 0 0 .1em inset var(--c); 
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: 
+    var(--_g) calc(var(--_p,0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p,0%)) 0%,
+    var(--_g) calc(var(--_p,0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p,0%)) 100%;
+  background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+  outline-offset: .1em;
+  transition: background-size .4s, background-position 0s .4s;
+}
+button:hover {
+  --_p: 100%;
+  transition: background-position .4s, background-size 0s;
+}
+button:active {
+  box-shadow: 0 0 9e9q inset #0009; 
+  background-color: var(--c);
+  color: #fff;
+}
+button {
+  font-family: system-ui, sans-serif;
+  font-size: 3.5rem;
+  cursor: pointer;
+  padding: .1em .6em;
+  font-weight: bold;  
+  border: none;
+}
+
+@layer demo {
+  .navbar-brand {
+    inline-size: var(--size-content-3);
+    aspect-ratio: var(--ratio-widescreen);
+    border: solid var(--size-1) transparent;
+    border-radius: var(--radius-);
+    background: 
+      linear-gradient(var(--surface-1), var(--surface-1)) padding-box, 
+      var(--gradient-1) border-box;
+  }
+}

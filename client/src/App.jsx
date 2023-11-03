@@ -1,110 +1,57 @@
-import React from "react"
-import Sidebar from "./Sidebar"
-import Editor from "./Editor"
-import { data } from "./data"
-import Split from "react-split"
-import {nanoid} from "nanoid"
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MarkdownList from './components/MarkdownList';
+import CreateMarkdown from './components/CreateMarkdown';
+import Register from './components/Register';
+import Login from './components/Login';
+import Home from './components/Home';
+import Navbar from './components/Navbar';
+import Chart from './components/Chart';
+import './chartConfig'
 
-export default function App() {
-  const [notes, setNotes] = React.useState(
-    ()=>JSON.parse(localStorage.getItem("notes"))|| []
-    )
-  const [currentNoteId, setCurrentNoteId] = React.useState(
-      (notes[0] && notes[0].id) || ""
-  )
-  
-  React.useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes))
-  }, [notes])
-  
-  function createNewNote() {
-      const newNote = {
-          id: nanoid(),
-          body: "# Type your markdown note's title here"
-      }
-      setNotes(prevNotes => [newNote, ...prevNotes])
-      setCurrentNoteId(newNote.id)
-  }
 
-  // Put the most recently-modified
-  // note to be at the top
-  function updateNote(text) {
-    setNotes(oldNotes => {
-      const newNotes = oldNotes.map(oldNote => {
-        return oldNote.id === currentNoteId
-          ? { ...oldNote, body: text }
-          : oldNote
+
+function App() {
+  const [markdownList, setMarkdownList] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+
+  useEffect(() => {
+    axios
+      .get('https://mymarkdownapp.onrender.com/api/markdown/markdown-list')
+      .then((response) => {
+        setMarkdownList(response.data);
       })
-      const newNote = newNotes.find(note => note.id === currentNoteId)
-      const newNoteIndex = newNotes.indexOf(newNote)
-      const newNotesWithoutNewNote = newNotes.filter(
-        note => note.id !== currentNoteId
-      )
-      newNotesWithoutNewNote.splice(newNoteIndex, 0, newNote)
-      return newNotesWithoutNewNote
-    })
-}
-  // This does not rearrange the notes
-  // function updateNote(text) {
-  //     setNotes(oldNotes => oldNotes.map(oldNote => {
-  //         return oldNote.id === currentNoteId
-  //             ? { ...oldNote, body: text }
-  //             : oldNote
-  //     }))
-  // }
-  
-   
-  function deleteNote(event, noteId) {
-    event.stopPropagation()
-    setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
-  
+      .catch((error) => {
+        console.error('Error fetching Markdown list:', error);
+      });
+  }, []);
+
+
+
+  return (
+    <div className="App">
+      <Router>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/create"
+            element={<CreateMarkdown markdownList={markdownList} setMarkdownList={setMarkdownList} />}
+          />
+          <Route
+            path="/list"
+            element={<MarkdownList markdownList={markdownList} setMarkdownList={setMarkdownList} />}
+          />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/chart" element={<Chart/>}></Route>
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
-  function findCurrentNote() {
-      return notes.find(note => {
-          return note.id === currentNoteId
-      }) || notes[0]
-  }
-  
-  return (
-      <main>
-      {
-          notes.length > 0 
-          ?
-          <Split 
-              sizes={[30, 70]} 
-              direction="horizontal" 
-              className="split"
-          >
-              <Sidebar
-                  notes={notes}
-                  currentNote={findCurrentNote()}
-                  setCurrentNoteId={setCurrentNoteId}
-                  newNote={createNewNote}
-                  deleteNote={deleteNote}
-              />
-              {
-                  currentNoteId && 
-                  notes.length > 0 &&
-                  <Editor 
-                      currentNote={findCurrentNote()} 
-                      updateNote={updateNote} 
-                  />
-              }
-          </Split>
-          :
-          <div className="no-notes">
-              <h1>You have no notes</h1>
-              <button 
-                  className="first-note" 
-                  onClick={createNewNote}
-              >
-                  Create one now
-              </button>
-          </div>
-          
-      }
-      </main>
-  )
-}
+export default App;

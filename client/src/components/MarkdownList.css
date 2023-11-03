@@ -1,0 +1,82 @@
+
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    position: relative;
+  }
+  
+
+  .btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  
+  .btn-edit {
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-edit:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c82333;
+  }
+  
+  
+  .edit-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  
+  .btn-save,
+  .btn-cancel {
+    margin-top: 10px;
+  }
+  
+  .btn-save {
+    background-color: #28a745;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  .btn-save:hover {
+    background-color: #218838;
+  }
+  
+  .btn-cancel {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #5a6268;
+  }
+  
