@@ -68,7 +68,7 @@ function Register() {
         isMobileValid
       ) {
       
-       const response = await axios.post('http://localhost:5000/api/auth/register', formData)
+       const response = await axios.post('https://markdown-connecting.onrender.com/api/auth/register', formData)
        .catch(error => {
         if (error.response) {
           console.log(error.response.data); // Log the error response

@@ -22,7 +22,7 @@ function MarkdownList({ markdownList, setMarkdownList }) {
 
   const handleSaveEdit = (id) => {
     axios
-      .put(`http://localhost:5000/api/markdown/update-markdown/${id}`, { content: editedMarkdown })
+      .put(`https://markdown-connecting.onrender.com/api/markdown/update-markdown/${id}`, { content: editedMarkdown })
       .then(() => {
         // Update the local state with the edited content
         setMarkdownList((prevList) =>
@@ -45,7 +45,7 @@ function MarkdownList({ markdownList, setMarkdownList }) {
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this Markdown content?')) {
       axios
-        .delete(`http://localhost:5000/api/markdown/delete-markdown/${id}`)
+        .delete(`https://markdown-connecting.onrender.com/api/markdown/delete-markdown/${id}`)
         .then(() => {
           // Remove the deleted content from the local state
           setMarkdownList((prevList) => prevList.filter((markdown) => markdown._id !== id));
